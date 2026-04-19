@@ -35,6 +35,18 @@
             margin-bottom: 15px;
         }
 
+        /* YENİ: 90'lar Tarzı Şık Replik Barı */
+        .quote-bar {
+            background-color: #000080;
+            border: 4px inset #C0C0C0;
+            color: #FFFF00;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+            box-shadow: 2px 2px 4px #888888;
+        }
+
         /* YÖNERGE: 90'ların ikonik kabartmalı buton tasarımı. */
         .btn-90s {
             background-color: #C0C0C0;
@@ -123,6 +135,10 @@
 
     <div class="marquee-bar">
         <marquee scrollamount="6">🍿 DİKKAT: YENİ BLOG YAZISI EKLENDİ! 📽️ IMDB TOP 250 VERİTABANI %100 AKTİF... LÜTFEN BİR MENÜ SEÇİNİZ 🎞️ VİZYONDAKİLER İÇİN TIKLAYIN...</marquee>
+    </div>
+
+    <div class="quote-bar">
+        <font size="3">🎬 <b>SİSTEMDEN GELEN REPLİK:</b> <span id="randomReplik" style="color: #00FF00;"><i>Veri yükleniyor... Sistem başlatılıyor...</i></span> 🎬</font>
     </div>
 
     <table width="100%" border="0" cellpadding="10" cellspacing="0">
@@ -269,56 +285,58 @@
         </font>
     </center>
 
-  <script src="liste.js"></script>
+    <script src="liste.js"></script>
+    <script src="liste2.js"></script>
 
     <script>
-        // Sayfa yüklendiğinde varsayılan olarak "Biz Kimiz" sekmesini açar.
+        // Sayfa yüklendiğinde varsayılan işlemleri yapar
         window.onload = function() {
             showSection('biz-kimiz');
+            
+            // Replik barı için rastgele söz çekme işlemi
+            if (typeof replikListesi !== 'undefined' && replikListesi.length > 0) {
+                var randomQuoteIndex = Math.floor(Math.random() * replikListesi.length);
+                document.getElementById('randomReplik').innerHTML = '"' + replikListesi[randomQuoteIndex] + '"';
+            } else {
+                document.getElementById('randomReplik').innerHTML = "Sistem Hatası: Replik veri tabanına (liste2.js) ulaşılamadı.";
+            }
         };
 
-        // Menü sekmeleri arasında hatasız ve pürüzsüz geçiş sağlayan fonksiyon.
+        // Menü sekmeleri arasında geçiş sağlayan fonksiyon
         function showSection(id) {
             var sections = document.getElementsByClassName('section');
             
-            // Tüm sekmeleri gizle ve aktif sınıfını kaldır
             for(var i = 0; i < sections.length; i++) {
                 sections[i].style.display = 'none';
                 sections[i].classList.remove('active');
             }
             
-            // Seçilen sekmeyi bul, görünür yap ve animasyonu tetikle
             var targetSection = document.getElementById(id);
             if(targetSection) {
                 targetSection.style.display = 'block';
-                // Animasyonun baştan başlaması için tarayıcıyı reflow işlemine zorluyoruz
                 void targetSection.offsetWidth; 
                 targetSection.classList.add('active');
             }
         }
 
-        // YÖNERGE: Butonun tetiklediği, liste.js içindeki veriyi okuyan yeni fonksiyon
+        // Film çeken fonksiyon
         function generateMovie() {
             var card = document.getElementById('movieCard');
             
-            // filmListesi değişkeni harici liste.js dosyasından otomatik olarak çekilir
-            // Math.random ile bu listenin uzunluğu kadar rastgele bir sayı üretip filmi seçiyoruz
-            var randomInt = Math.floor(Math.random() * filmListesi.length);
-            var selectedMovie = filmListesi[randomInt];
-            
-            // HTML içindeki yazı alanına seçilen filmi yazdırıyoruz
-            document.getElementById('movieTitle').innerText = selectedMovie;
-            
-            // Dinamik afiş oluşturucu (Eski stil kırmızı arka plan üzerine kalın siyah font)
-            // Filmin ismi uzunsa afişe sığması için encodeURIComponent kullanıyoruz
-            var placeholderUrl = "https://placehold.co/300x420/8b0000/000000?font=oswald&text=" + encodeURIComponent(selectedMovie);
-            document.getElementById('movieCover').src = placeholderUrl;
-            
-            // Kartı (Projeksiyon perdesini) görünür hale getir
-            card.style.display = "block";
+            if (typeof filmListesi !== 'undefined') {
+                var randomInt = Math.floor(Math.random() * filmListesi.length);
+                var selectedMovie = filmListesi[randomInt];
+                
+                document.getElementById('movieTitle').innerText = selectedMovie;
+                
+                var placeholderUrl = "https://placehold.co/300x420/8b0000/000000?font=oswald&text=" + encodeURIComponent(selectedMovie);
+                document.getElementById('movieCover').src = placeholderUrl;
+                
+                card.style.display = "block";
+            } else {
+                alert("liste.js dosyası yüklenemedi!");
+            }
         }
     </script>
-</body>
-</html>
 </body>
 </html>
