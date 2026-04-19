@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zaman Makinesi! | 90'lar Sinema Rehberi</title>
     <style>
         body {
@@ -35,7 +36,6 @@
             margin-bottom: 15px;
         }
 
-        /* YENİ: 90'lar Tarzı Şık Replik Barı */
         .quote-bar {
             background-color: #000080;
             border: 4px inset #C0C0C0;
@@ -47,7 +47,6 @@
             box-shadow: 2px 2px 4px #888888;
         }
 
-        /* YÖNERGE: 90'ların ikonik kabartmalı buton tasarımı. */
         .btn-90s {
             background-color: #C0C0C0;
             border-top: 3px solid #FFFFFF;
@@ -64,6 +63,7 @@
             display: block;
             width: 100%;
             text-align: left;
+            box-sizing: border-box;
         }
         
         .btn-90s:active {
@@ -81,9 +81,9 @@
             padding: 20px;
             min-height: 550px;
             position: relative;
+            box-sizing: border-box;
         }
 
-        /* YÖNERGE: Sekme geçişleri için display none/block mantığı JS ile destekleniyor. */
         .section {
             display: none; 
         }
@@ -112,6 +112,39 @@
             background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2P//vwMTAwMDEwAQQYAAAC3wAv5q+z+AAAAAAElFTkSuQmCC') repeat-x;
             margin: 15px 0;
         }
+
+        /* YENİ: MOBİL ENTEGRASYON (Ustaca Gizlenmiş Modern CSS) */
+        /* 90'ların tablo yapısını bozmadan mobilde bloklara ayırıyoruz */
+        @media only screen and (max-width: 768px) {
+            .yahoo-logo {
+                font-size: 36px; /* Mobilde başlık küçültüldü */
+            }
+            .layout-table, .layout-table tbody, .layout-table tr {
+                display: block;
+                width: 100%;
+            }
+            .layout-sidebar, .layout-content {
+                display: block;
+                width: 100%;
+                border-right: none !important;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+            }
+            .search-table {
+                width: 95% !important;
+            }
+            #movieCard {
+                width: 100% !important;
+            }
+            .cinema-screen-container {
+                min-height: auto;
+                padding: 10px;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 <body bgcolor="#FFFFFF" text="#000000">
@@ -121,11 +154,11 @@
         <font face="Arial" size="2"><b>İnternetteki En Büyük Sinema ve Film Rehberi Kategorisi</b></font>
         <br><br>
         
-        <table border="2" bordercolor="#C0C0C0" bgcolor="#E0E0E0" cellpadding="5" cellspacing="0" width="60%">
+        <table class="search-table" border="2" bordercolor="#C0C0C0" bgcolor="#E0E0E0" cellpadding="5" cellspacing="0" width="60%">
             <tr>
                 <td align="center">
                     <font face="Arial" size="2">Rehberde Ara:</font>
-                    <input type="text" size="30" value="Örn: Nolan, Kubrick...">
+                    <input type="text" size="20" value="Örn: Nolan, Kubrick..." style="max-width: 50%;">
                     <button class="btn-90s" style="display:inline-block; width:auto; padding:2px 10px;">Bul!</button>
                 </td>
             </tr>
@@ -141,9 +174,9 @@
         <font size="3">🎬 <b>SİSTEMDEN GELEN REPLİK:</b> <span id="randomReplik" style="color: #00FF00;"><i>Veri yükleniyor... Sistem başlatılıyor...</i></span> 🎬</font>
     </div>
 
-    <table width="100%" border="0" cellpadding="10" cellspacing="0">
+    <table class="layout-table" width="100%" border="0" cellpadding="10" cellspacing="0">
         <tr>
-            <td width="22%" valign="top" bgcolor="#F0F8FF" style="border-right: 3px ridge #C0C0C0;">
+            <td class="layout-sidebar" width="22%" valign="top" bgcolor="#F0F8FF" style="border-right: 3px ridge #C0C0C0;">
                 <table width="100%" border="0" cellspacing="0" cellpadding="3">
                     <tr><td bgcolor="#000080" align="center"><font color="#FFFFFF" face="Arial"><b>🎬 DİZİN MENÜSÜ</b></font></td></tr>
                 </table>
@@ -156,7 +189,7 @@
                 
                 <br><br>
                 <center>
-                    <div style="border:2px inset #FFF; background:#C0C0C0; padding:5px;">
+                    <div style="border:2px inset #FFF; background:#C0C0C0; padding:5px; width: 100px;">
                         <font size="1" face="Arial"><b>SİTE İSTATİSTİKLERİ</b></font><br>
                         <img src="https://counter5.optie.be/Private/freecounterstat.php?c=87e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8" border="0" alt="Hit Counter" width="80">
                         <br><font size="1">Ziyaretçi</font>
@@ -164,7 +197,7 @@
                 </center>
             </td>
 
-            <td width="78%" valign="top">
+            <td class="layout-content" width="78%" valign="top">
                 <div class="cinema-screen-container">
                     
                     <div id="biz-kimiz" class="section">
@@ -199,7 +232,7 @@
                         <div class="retro-hr"></div>
                         <center>
                             <font face="Courier" size="3" color="#FFFF00">IMDb Top 250 Veritabanına Bağlanıldı. Hazır.</font><br><br>
-                            <button type="button" class="btn-90s" onclick="generateMovie()" style="font-size: 16px; padding: 10px; width: 60%; text-align:center;">🎞️ ARŞİVDEN RASTGELE FİLM ÇEK 🎞️</button>
+                            <button type="button" class="btn-90s" onclick="generateMovie()" style="font-size: 16px; padding: 10px; width: 80%; max-width: 400px; text-align:center;">🎞️ ARŞİVDEN RASTGELE FİLM ÇEK 🎞️</button>
                             <br><br>
                             
                             <table id="movieCard" border="4" bordercolor="#8B0000" bgcolor="#222222" cellpadding="15" style="display:none; width: 60%;">
@@ -218,6 +251,20 @@
                     <div id="blog" class="section">
                         <font face="Arial" color="#FF0000" size="5"><b>[ SİNEMA GÜNLÜĞÜ ]</b></font>
                         <div class="retro-hr"></div>
+
+                        <table border="1" bordercolor="#444444" bgcolor="#1A1A1A" cellpadding="15" width="100%" style="margin-bottom: 20px;">
+                            <tr>
+                                <td>
+                                    <font face="Courier" color="#FF0000" size="2"><b>Tarih: 20 Nisan 2026 | Kategori: Sinematografi & Korku</b></font><br><br>
+                                    <font face="Times New Roman" size="5" color="#FFFFFF"><b>Yaşayan Ölülerin Rengi: Düşük Işıkta Zombi Estetiği</b></font><br><br>
+                                    <font face="Times New Roman" size="3" color="#CCCCCC">
+                                    Zombi filmlerinin asıl dehşeti, çürüyen bedenlerde değil, karanlığın içindeki belirsizlikte saklıdır. Romero'nun siyah-beyaz klasiklerinden modern salgın filmlerine kadar bu türün ruhu, gölgelerin gücünü kullanmaktan geçer. Kamerayı elinize aldığınızda, o kasvetli ve tekinsiz atmosferi yaratmak sıradan bir çekimden çıkıp matematiksel bir post-prodüksiyon meydan okumasına dönüşür.<br><br>
+                                    Sette zombilerin o soluk, hastalıklı ten rengini ve çamurlu yeşil tonlarını yakalamak için karanlıkta çalışmak zorundasınız. İşte tam burada ekipmanın sınırlarını zorlamak devreye giriyor. Sony A7S III gibi düşük ışık canavarlarının güvenli ISO aralıklarında gezinirken, o karanlık köşelerdeki detayı kaybetmemek için 14-bit renk derinliğinin sunduğu esnekliğe sığınıyorsunuz. Post-prodüksiyonda o karanlık pikselleri kurtarmak ve renkleri ayırmak, adeta bir zombiyi diriltmek gibidir. Doğru log profilini kullanıp ışığı verimli okuyamazsanız, gölgeler noise (kumlanma) içinde boğulur ve o sinematik dehşet hissi, anında ucuz bir amatör videoya dönüşür. Zombi sineması; izleyici için hayatta kalma, kameraman için ise ışığı hayatta tutma mücadelesidir.
+                                    </font>
+                                </td>
+                            </tr>
+                        </table>
+
                         <table border="1" bordercolor="#444444" bgcolor="#1A1A1A" cellpadding="15" width="100%">
                             <tr>
                                 <td>
@@ -289,11 +336,9 @@
     <script src="liste2.js"></script>
 
     <script>
-        // Sayfa yüklendiğinde varsayılan işlemleri yapar
         window.onload = function() {
             showSection('biz-kimiz');
             
-            // Replik barı için rastgele söz çekme işlemi
             if (typeof replikListesi !== 'undefined' && replikListesi.length > 0) {
                 var randomQuoteIndex = Math.floor(Math.random() * replikListesi.length);
                 document.getElementById('randomReplik').innerHTML = '"' + replikListesi[randomQuoteIndex] + '"';
@@ -302,7 +347,6 @@
             }
         };
 
-        // Menü sekmeleri arasında geçiş sağlayan fonksiyon
         function showSection(id) {
             var sections = document.getElementsByClassName('section');
             
@@ -319,7 +363,6 @@
             }
         }
 
-        // Film çeken fonksiyon
         function generateMovie() {
             var card = document.getElementById('movieCard');
             
