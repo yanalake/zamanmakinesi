@@ -68,7 +68,7 @@
         .blink { animation: blinker 1s step-start infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
 
-        /* Başlık (CH 99 Giriş Kapısı) */
+        /* Başlık */
         h1 {
             text-align: center;
             font-family: 'Arial Black', sans-serif;
@@ -78,12 +78,12 @@
             letter-spacing: 5px;
             text-transform: uppercase;
             text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-            cursor: pointer; /* Tıklanabilir olduğunu gizlice belli eder */
+            cursor: pointer;
             transition: 0.2s;
         }
         h1:hover { text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
 
-        /* Gizli Arama / Terminal Kutusu */
+        /* Gizli Arama Terminali */
         .search-container {
             text-align: center;
             margin-bottom: 20px;
@@ -102,7 +102,6 @@
         }
         .search-input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
 
-        /* Replik Barı */
         .quote-bar {
             background-color: var(--neon-blue);
             color: #000;
@@ -112,10 +111,9 @@
             font-weight: bold;
             text-transform: uppercase;
             box-shadow: 0 0 10px var(--neon-blue);
-            text-shadow: none;
         }
 
-        /* LAYOUT: DVD Menü Tasarımı */
+        /* LAYOUT */
         .layout-grid {
             display: grid;
             grid-template-columns: 250px 1fr;
@@ -124,7 +122,6 @@
             z-index: 5;
         }
 
-        /* Sol Menü: DVD Seçenekleri */
         .dvd-menu {
             display: flex;
             flex-direction: column;
@@ -166,7 +163,6 @@
 
         .dvd-btn:hover::before, .dvd-btn.active::before { opacity: 1; left: 0; }
 
-        /* Sağ İçerik Ekranı */
         .content-screen {
             background-color: var(--panel-bg);
             border: 1px solid #333;
@@ -174,6 +170,52 @@
             min-height: 450px;
             border-left: 4px solid var(--neon-pink);
             box-shadow: inset 0 0 20px rgba(0,0,0,1);
+        }
+
+        /* SEÇMELER: VHS VIDEO KONTEYNERI */
+        .vhs-video-frame {
+            position: relative;
+            background: #000;
+            border: 8px solid #222;
+            padding: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,1);
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        /* Video üzerine binen hafif karıncalanma ve renk sapması filtresi */
+        .vhs-video-frame video {
+            filter: contrast(1.1) brightness(1.1) sepia(0.1);
+            width: 100%;
+            display: block;
+        }
+
+        .vhs-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+            background-size: 100% 2px, 2px 100%;
+            z-index: 2;
+        }
+
+        .vhs-tracking-line {
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 0.5;
+            top: -100px;
+            animation: vhsTracking 10s linear infinite;
+            z-index: 3;
+            filter: blur(5px);
+        }
+
+        @keyframes vhsTracking {
+            0% { top: -100px; }
+            5% { top: 100%; }
+            100% { top: 100%; }
         }
 
         .section { display: none; }
@@ -184,16 +226,12 @@
 
         @keyframes staticFlicker {
             0% { opacity: 0; transform: scale(0.98) translateY(5px); filter: blur(2px); }
-            50% { opacity: 0.5; filter: blur(1px); }
             100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
-        /* İçerik Tipografisi */
         h2 { color: var(--neon-pink); border-bottom: 1px dashed #555; padding-bottom: 10px; margin-top: 0; text-shadow: 0 0 5px var(--neon-pink); }
         h3 { color: var(--neon-blue); }
         p, li { line-height: 1.6; color: #ccc; }
-        a { color: var(--neon-blue); text-decoration: none; }
-        a:hover { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink); }
 
         .action-btn {
             background-color: var(--neon-pink);
@@ -209,23 +247,11 @@
             font-family: inherit;
             width: 100%;
             margin-bottom: 20px;
-            text-shadow: none;
         }
-        .action-btn:hover { background-color: #fff; color: var(--neon-pink); box-shadow: 0 0 25px var(--neon-pink); }
 
         .blog-post { background: #0a0a0a; border: 1px solid #222; padding: 20px; margin-bottom: 25px; }
         .blog-meta { color: var(--crt-green); font-size: 0.9rem; margin-bottom: 10px; display: block; }
-        
-        .dict-table { width: 100%; border-collapse: collapse; }
-        .dict-table th, .dict-table td { border: 1px solid #333; padding: 12px; text-align: left; }
-        .dict-table th { background-color: #222; color: var(--neon-blue); }
-        .dict-table td:first-child { color: var(--neon-pink); font-weight: bold; width: 30%; }
 
-        /* Dinamik Sözlük Input Satırı */
-        .dict-input-row input { background: transparent; border: none; color: var(--crt-green); font-family: inherit; width: 100%; outline: none; font-size: 1rem; }
-        .dict-input-row input::placeholder { color: #444; }
-
-        /* GİZLİ TERMİNAL / TELETEXT EKRANLARI */
         #ghost-terminal, #ch99-room {
             display: none;
             position: absolute;
@@ -237,15 +263,15 @@
             color: var(--crt-green);
             overflow-y: auto;
         }
-        .teletext-bg { background-color: #000; color: #ff0; padding: 20px; border: 2px solid #ff0; font-weight: bold; text-transform: uppercase; }
-        .teletext-input { width: 100%; background: #222; color: #fff; border: 1px solid #ff0; padding: 10px; margin: 10px 0; font-family: inherit; }
+
+        .dict-table { width: 100%; border-collapse: collapse; }
+        .dict-table th, .dict-table td { border: 1px solid #333; padding: 12px; text-align: left; }
+        .dict-table th { background-color: #222; color: var(--neon-blue); }
+        .dict-table td:first-child { color: var(--neon-pink); font-weight: bold; width: 30%; }
 
         @keyframes heavyGlitch {
             0% { clip-path: inset(10% 0 80% 0); transform: translate(-5px, 5px); }
-            20% { clip-path: inset(80% 0 5% 0); transform: translate(5px, -5px); }
             40% { clip-path: inset(40% 0 40% 0); transform: translate(-5px, 5px); filter: invert(1); }
-            60% { clip-path: inset(20% 0 60% 0); transform: translate(5px, -5px); }
-            80% { clip-path: inset(60% 0 20% 0); transform: translate(-5px, 5px); }
             100% { clip-path: inset(0 0 0 0); transform: translate(0); filter: invert(0); }
         }
         .glitch-active { animation: heavyGlitch 0.5s linear infinite; }
@@ -254,8 +280,7 @@
             .layout-grid { grid-template-columns: 1fr; }
             h1 { font-size: 1.8rem; letter-spacing: 2px; }
             .vcr-osd { font-size: 1rem; }
-            .content-screen { padding: 15px; border-left: none; border-top: 4px solid var(--neon-pink); }
-            .dvd-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333; padding-bottom: 15px; }
+            .dvd-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; }
             .dvd-btn { width: auto; font-size: 0.9rem; padding: 8px; }
             .search-input { width: 80%; }
         }
@@ -306,6 +331,7 @@
                 <button type="button" class="dvd-btn" onclick="showSection('oneri-botu', this)">[04] Veri Ağları</button>
                 <button type="button" class="dvd-btn" onclick="showSection('sinema-sozlugu', this)">[05] Terimler Sözlüğü</button>
                 <button type="button" class="dvd-btn" onclick="showSection('teletext', this)" style="color: #ff0;">[06] Teletext (Editoryal)</button>
+                <button type="button" class="dvd-btn" onclick="showSection('secmeler', this)" style="color: var(--neon-pink);">[07] Seçmeler</button>
                 
                 <div style="margin-top: auto; padding-top: 30px; text-align: center; color: #555; font-size: 0.8rem;">
                     SİSTEM DURUMU: AKTİF<br>
@@ -324,15 +350,14 @@
                     <p><b>> MASAÜSTÜ ROL YAPMA:</b> D&D Evreni - Rock Gnome Büyücüsü 'WraithCruche'</p>
                     <p><b>> GÜVENLİK ASİSTANI:</b> 5 kg ağırlığında, siyah Bombay cinsi kedi</p>
                     <hr style="border-color: #333; margin: 20px 0;">
-                    <p><i>Basın sektöründeki editoryal disiplini, kamera arkasındaki teknik kurallarla birleştiriyorum. SMMM mevzuatları ve hukuksal metinlerin yoğunluğundan kaçtığım, prompt algoritmalarının matematiği ile görsel sanatları harmanladığım kişisel sinema sığınağıma hoş geldin. Her kare, özenle maskelenmiş bir After Effects projesi gibi incelikle işlenmiştir.</i></p>
+                    <p><i>Basın sektöründeki editoryal disiplini, kamera arkasındaki teknik kurallarla birleştiriyorum. SMMM mevzuatları ve hukuksal metinlerin yoğunluğundan kaçtığım, prompt algoritmalarının matematiği ile görsel sanatları harmanladığım kişisel sinema sığınağıma hoş geldin.</i></p>
                 </div>
 
                 <div id="gunun-onerisi" class="section" style="text-align: center;">
                     <h2>// IMDB OFFLINE VERİTABANI BAĞLANTISI</h2>
                     <p style="color: var(--crt-green);">Sistem Hazır. Rastgele çekim modülü aktif.</p>
                     <button type="button" class="action-btn" onclick="generateMovie()">KASEDİ TAK VE ÇALIŞTIR</button>
-                    
-                    <div id="movieCard" style="display:none; background: #000; border: 1px solid #333; padding: 20px; margin-top: 20px; box-shadow: 0 0 10px rgba(0,255,255,0.2);">
+                    <div id="movieCard" style="display:none; background: #000; border: 1px solid #333; padding: 20px; margin-top: 20px;">
                         <img id="movieCover" src="" style="width: 100%; max-width: 250px; border: 2px solid var(--neon-blue);" alt="Film Kapağı">
                         <h3 id="movieTitle" style="margin: 15px 0 5px 0; font-size: 1.5rem; text-transform: uppercase;"></h3>
                         <span style="color: #666; font-size: 0.9rem;">> VERİ KAYNAĞI: liste.js</span>
@@ -344,41 +369,37 @@
                     <div class="blog-post">
                         <span class="blog-meta">> TARİH: 20 Nisan 2026 | KATEGORİ: Kült Klasikler & İnceleme</span>
                         <h3>Romero'nun Çocukları: Sinema Tarihinin En İyi Zombi Filmleri</h3>
-                        <p>Modern zombi sinemasının babası George A. Romero'ya bir selam çakmadan korku sinemasından bahsetmek imkansızdır. O, "yaşayan ölüleri" sadece birer canavar değil, toplumun tüketim çılgınlığını, ırkçılığı ve yozlaşmayı yansıtan birer ayna olarak kullandı...</p>
-                    </div>
-                    <div class="blog-post">
-                        <span class="blog-meta">> TARİH: 20 Nisan 2026 | KATEGORİ: Sinematografi & Korku</span>
-                        <h3>Yaşayan Ölülerin Rengi: Düşük Işıkta Zombi Estetiği</h3>
-                        <p>Zombi filmlerinin asıl dehşeti, çürüyen bedenlerde değil, karanlığın içindeki belirsizlikte saklıdır. Romero'nun siyah-beyaz klasiklerinden modern salgın filmlerine kadar bu türün ruhu, gölgelerin gücünü kullanmaktan geçer...</p>
-                    </div>
-                    <div class="blog-post">
-                        <span class="blog-meta">> TARİH: 19 Nisan 2026 | KATEGORİ: Sinematografi & Zaman</span>
-                        <h3>Saniyelerin Ağırlığı: Nolan, Sinema ve 14-Bit Derinliği</h3>
-                        <p>Zaman makinesi icat edilmedi diyorlar, oysa her sinema salonu bir zaman makinesidir. Christopher Nolan sinemasına baktığımızda, zamanın sadece bir arka plan değil, başlı başına bir karakter olduğunu görürüz...</p>
+                        <p>Modern zombi sinemasının babası George A. Romero'ya bir selam çakmadan korku sinemasından bahsetmek imkansızdır...</p>
                     </div>
                 </div>
 
-                <div id="oneri-botu" class="section">
-                    <h2>// HARİCİ AĞ BAĞLANTILARI</h2>
-                    <ul>
-                        <li><a href="#">[ PORT 01 ] Letterboxd Ağ Geçidi</a> - Sinefillerin sosyal ağı ve detaylı liste merkezi.</li>
-                        <li><a href="#">[ PORT 02 ] TasteDive Algoritması</a> - Sevdiğin filmlere dayalı akıllı veri eşleştirme motoru.</li>
-                        <li><a href="#">[ PORT 03 ] MUBI Küratörleri</a> - Bağımsız ve klasik sinema arşivi.</li>
-                        <li><a href="#">[ PORT 04 ] JustWatch Radarı</a> - Filmin hangi sunucuda barındırıldığını bulan arama motoru.</li>
-                    </ul>
+                <div id="secmeler" class="section">
+                    <h2>// ARŞİV ODASI: ÖZEL SEÇMELER</h2>
+                    <p>> <b>BANT KAYDI:</b> The Twilight Zone (1959) - Original Pilot</p>
+                    <p style="font-size: 0.9rem; color: #888;">> DURUM: Oynatılıyor... (Source: archive.org)</p>
+                    
+                    <div class="vhs-video-frame">
+                        <div class="vhs-overlay"></div>
+                        <div class="vhs-tracking-line"></div>
+                        <video controls poster="https://archive.org/services/img/the-twilight-zone-1959-s-01-e-00-original-pilot">
+                            <source src="https://archive.org/download/the-twilight-zone-1959-s-01-e-00-original-pilot/The+Twilight+Zone+1959+S01E00+Original+Pilot.mp4" type="video/mp4">
+                            Tarayıcınız VHS formatını desteklemiyor.
+                        </video>
+                    </div>
+                    
+                    <div style="margin-top: 20px; border: 1px solid #444; padding: 15px; background: rgba(0,0,0,0.5);">
+                        <font color="var(--neon-pink)"><b>> EDİTÖRÜN NOTU:</b></font>
+                        <p style="font-size: 0.9rem;">Twilight Zone'un hiç yayınlanmamış bu orijinal pilot bölümü, televizyon tarihinin en ikonik antolojisinin temelini atıyor. Siyah-beyaz sinematografisindeki yüksek kontrast, günümüz dijital sensörlerinin (Sony A7S III vb.) bile yakalamaya çalıştığı o "noir" atmosferin zirvesidir.</p>
+                    </div>
                 </div>
 
                 <div id="sinema-sozlugu" class="section">
-                    <h2>// TERMİNOLOJİ DEKODERİ (YAPAY ZEKA DESTEKLİ)</h2>
+                    <h2>// TERMİNOLOJİ DEKODERİ</h2>
                     <table class="dict-table" id="dictTable">
                         <tr><th>TERİM</th><th>TANIM</th></tr>
-                        <tr><td>Mise-en-scène</td><td>Mizansen. Çerçeve içindeki her şeyin (ışık, dekor, oyuncu) yerleşimi.</td></tr>
-                        <tr><td>MacGuffin</td><td>Olay örgüsünü sürükleyen ama içsel anlamı olmayan nesne.</td></tr>
-                        <tr><td>Roto Brush</td><td>Post-prodüksiyonda hareketli bir objeyi arka plandan ayırmak için kullanılan maskeleme aracı.</td></tr>
+                        <tr><td>Mise-en-scène</td><td>Mizansen. Çerçeve içindeki yerleşim.</td></tr>
                         <tr class="dict-input-row">
-                            <td colspan="2">
-                                <input type="text" id="newTermInput" placeholder="> Yeni bir terim yaz ve 'Enter'a bas (Sistem tanımlasın)..." onkeypress="addDynamicTerm(event)">
-                            </td>
+                            <td colspan="2"><input type="text" id="newTermInput" placeholder="> Yeni terim giriniz..." onkeypress="addDynamicTerm(event)"></td>
                         </tr>
                     </table>
                 </div>
@@ -386,7 +407,6 @@
                 <div id="teletext" class="section">
                     <div class="teletext-bg">
                         <p>TELETEXT MODÜLÜ SAYFA 101 -- EDİTORYAL ÖZETLEYİCİ</p>
-                        <p style="color: #fff; font-size: 0.9rem;">(İngilizce kaynakları veya ham bültenleri buraya yapıştırın. Sistem Türkçe haber formatına çekecektir.)</p>
                         <textarea id="teletext-input" class="teletext-input" rows="5" placeholder="HAM METNİ GİRİNİZ..."></textarea>
                         <button onclick="simulateAIResponse('teletext')" style="background: #ff0; color: #000; font-weight: bold; padding: 5px 15px; cursor: pointer; border: none;">ÖZETLE / ÇEVİR</button>
                         <div id="teletext-output" style="margin-top: 20px; color: #0f0; display: none;">İŞLENİYOR...</div>
@@ -397,8 +417,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; font-size: 0.8rem; color: #444;">
-            COPYRIGHT © 1998-2026 ZAMAN MAKİNESİ VIDEO KULÜBÜ<br>
-            SİSTEM UYARISI: LÜTFEN KASETLERİ GERİ SARARAK İADE EDİNİZ.
+            COPYRIGHT © 1998-2026 ZAMAN MAKİNESİ VIDEO KULÜBÜ
         </div>
     </div>
 
@@ -409,12 +428,9 @@
         window.onload = function() {
             var firstBtn = document.querySelector('.dvd-btn');
             showSection('biz-kimiz', firstBtn);
-            
             if (typeof replikListesi !== 'undefined' && replikListesi.length > 0) {
                 var randomQuoteIndex = Math.floor(Math.random() * replikListesi.length);
                 document.getElementById('randomReplik').innerText = '"' + replikListesi[randomQuoteIndex] + '"';
-            } else {
-                document.getElementById('randomReplik').innerText = "SİSTEM HATASI: liste2.js BAĞLANTISI KOPTU.";
             }
         };
 
@@ -424,22 +440,23 @@
                 sections[i].style.display = 'none';
                 sections[i].classList.remove('active');
             }
-            
             var buttons = document.getElementsByClassName('dvd-btn');
             for(var i = 0; i < buttons.length; i++) {
                 buttons[i].classList.remove('active');
             }
-            
             var targetSection = document.getElementById(id);
             if(targetSection) {
                 targetSection.style.display = 'block';
                 void targetSection.offsetWidth; 
                 targetSection.classList.add('active');
+                
+                // Seçmeler'den ayrılırken videoyu durdur
+                if (id !== 'secmeler') {
+                    var v = document.querySelector('video');
+                    if(v) v.pause();
+                }
             }
-            
-            if(btnElement) {
-                btnElement.classList.add('active');
-            }
+            if(btnElement) btnElement.classList.add('active');
         }
 
         function generateMovie() {
@@ -451,14 +468,9 @@
                 var placeholderUrl = "https://placehold.co/300x450/111111/00ffff?font=oswald&text=" + encodeURIComponent(selectedMovie);
                 document.getElementById('movieCover').src = placeholderUrl;
                 card.style.display = "block";
-            } else {
-                alert("SİSTEM UYARISI: liste.js VERİTABANINA ULAŞILAMIYOR!");
             }
         }
 
-        /* ----- GİZLİ YAPAY ZEKA İLLÜZYON MODÜLLERİ ----- */
-
-        // 1. MS-DOS Arama Terminali
         function handleSearch(e) {
             if (e.key === 'Enter') {
                 var val = e.target.value.trim();
@@ -466,15 +478,10 @@
                     document.getElementById('main-layout').style.display = 'none';
                     document.getElementById('ghost-terminal').style.display = 'block';
                     document.getElementById('main-screen').classList.add('glitch-active');
-                    
                     setTimeout(() => document.getElementById('main-screen').classList.remove('glitch-active'), 500);
-                    
                     var out = document.getElementById('terminal-output');
                     out.innerHTML = '';
-                    var text = ">>> SİSTEM BAĞLANTISI AKTİF.\n>>> VERİ İŞLENİYOR...\n\n(AI SİMÜLASYONU): Girdiğiniz '" + val.substring(9) + "' verisi editoryal algoritmalarca optimize edildi. Kamera ayarları 14-bit log seviyesine çekildi. Sonuç: Mükemmel sinematografi parametreleri oluşturuldu.";
-                    typeWriter(text, out, 0, 30);
-                } else {
-                    alert("Aranan veri bulunamadı. Belki de doğru yetki (komut) kodunu kullanmalısınız.");
+                    typeWriter(">>> SİSTEM BAĞLANTISI AKTİF. VERİ İŞLENİYOR...", out, 0, 30);
                 }
             }
         }
@@ -482,15 +489,11 @@
         function closeGhostTerminal() {
             document.getElementById('ghost-terminal').style.display = 'none';
             document.getElementById('main-layout').style.display = 'grid';
-            document.getElementById('aiSearchBox').value = '';
         }
 
-        // 2. CH99 Gizli Oda
         function triggerCH99() {
             document.getElementById('main-layout').style.display = 'none';
             document.getElementById('ch99-room').style.display = 'block';
-            document.getElementById('main-screen').classList.add('glitch-active');
-            setTimeout(() => document.getElementById('main-screen').classList.remove('glitch-active'), 800);
         }
 
         function closeCH99() {
@@ -498,29 +501,6 @@
             document.getElementById('main-layout').style.display = 'grid';
         }
 
-        // 3. Dinamik Sözlük Ekleme
-        function addDynamicTerm(e) {
-            if (e.key === 'Enter') {
-                var term = e.target.value.trim();
-                if (term !== "") {
-                    var table = document.getElementById('dictTable');
-                    var newRow = table.insertRow(table.rows.length - 1); // Inputtan bir üste ekle
-                    var cell1 = newRow.insertCell(0);
-                    var cell2 = newRow.insertCell(1);
-                    cell1.innerHTML = term;
-                    cell2.innerHTML = "<span class='blink'>Sistem tanımlıyor...</span>";
-                    
-                    e.target.value = ""; // Inputu temizle
-                    
-                    // Sahte AI bekleme süresi
-                    setTimeout(() => {
-                        cell2.innerHTML = "Görsel ve anlatısal olarak işlenmiş spesifik bir kurgu tekniği/kavramı. (Yapay Zeka tarafından otomatik tanımlandı).";
-                    }, 1500);
-                }
-            }
-        }
-
-        // Genel Daktilo Efekti
         function typeWriter(text, element, i, speed) {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
@@ -529,20 +509,12 @@
             }
         }
 
-        // Sahte İşlem Simülatörü (CH99 ve Teletext için)
         function simulateAIResponse(context) {
-            if(context === 'ch99') {
-                var out = document.getElementById('ch99-output');
-                out.innerHTML = "";
-                var text = "SİSTEM CEVABI: Karanlıkta çekim yapmak sadece sensör işi değildir, bir hikaye anlatımıdır. Fujifilm'in dinamik aralığı D&D evrenindeki bir 'Görünmezlik Büyüsü' gibidir; detayları karanlıkta saklar ama kaybetmez.";
-                typeWriter(text, out, 0, 40);
-            } else if (context === 'teletext') {
+            if (context === 'teletext') {
                 var out = document.getElementById('teletext-output');
                 out.style.display = 'block';
-                out.innerHTML = "ÇEVİRİ ALGORİTMASI DEVREDE... LÜTFEN BEKLEYİN.";
-                setTimeout(() => {
-                    out.innerHTML = "<strong>EDİTORYAL SONUÇ:</strong> Girilen haber bülteni Türkçe basın standartlarına uygun şekilde 150 kelimeye düşürülüp özetlendi. Tıklanma oranı (Clickbait) potansiyeli %85 olarak hesaplandı.";
-                }, 2000);
+                out.innerHTML = "İŞLENİYOR...";
+                setTimeout(() => { out.innerHTML = "Tamamlandı."; }, 2000);
             }
         }
     </script>
