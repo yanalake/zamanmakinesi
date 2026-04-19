@@ -284,9 +284,64 @@
             .dvd-btn { width: auto; font-size: 0.9rem; padding: 8px; }
             .search-input { width: 80%; }
         }
+        /* Ticker Bar Tasarımı */
+.ticker-container {
+    width: 100%;
+    background-color: #000; /* Arka plan siyah */
+    border-top: 1px solid #d4af37; /* Üst altın çizgi */
+    border-bottom: 1px solid #d4af37; /* Alt altın çizgi */
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+}
+
+.ticker-track {
+    display: inline-block;
+    white-space: nowrap;
+    /* 250s değeri okuma hızında, son derece yavaş bir akış sağlar */
+    animation: ticker-scroll 250s linear infinite;
+}
+
+.ticker-track:hover {
+    animation-play-state: paused; /* Fare gelince durur, okumayı kolaylaştırır */
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 50px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.ticker-item span {
+    color: #d4af37; /* Kategori başlıkları altın sarısı */
+    margin-right: 8px;
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
     </style>
 </head>
 <body>
+    <div class="ticker-container">
+    <div class="ticker-track">
+        <div class="ticker-item"><span>EN İYİ FİLM:</span> OPPENHEIMER</div>
+        <div class="ticker-item"><span>EN İYİ YÖNETMEN:</span> CHRISTOPHER NOLAN</div>
+        <div class="ticker-item"><span>EN İYİ ERKEK OYUNCU:</span> CILLIAN MURPHY</div>
+        <div class="ticker-item"><span>EN İYİ KADIN OYUNCU:</span> EMMA STONE</div>
+        <div class="ticker-item"><span>EN İYİ YARDIMCI ERKEK:</span> ROBERT DOWNEY JR.</div>
+        
+        <div class="ticker-item"><span>EN İYİ FİLM:</span> OPPENHEIMER</div>
+        <div class="ticker-item"><span>EN İYİ YÖNETMEN:</span> CHRISTOPHER NOLAN</div>
+        <div class="ticker-item"><span>EN İYİ ERKEK OYUNCU:</span> CILLIAN MURPHY</div>
+        <div class="ticker-item"><span>EN İYİ KADIN OYUNCU:</span> EMMA STONE</div>
+        <div class="ticker-item"><span>EN İYİ YARDIMCI ERKEK:</span> ROBERT DOWNEY JR.</div>
+    </div>
+</div>
 
     <div class="crt-screen" id="main-screen">
         
