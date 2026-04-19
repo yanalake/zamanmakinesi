@@ -3,372 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi! | 90'lar Sinema Rehberi</title>
+    <title>ZAMAN MAKİNESİ | Video Kulübü & DVD Arşivi</title>
     <style>
+        /* VHS / CRT EKRAN ESTETİĞİ */
+        :root {
+            --neon-blue: #0ff;
+            --neon-pink: #f0f;
+            --crt-green: #0f0;
+            --bg-color: #050505;
+            --panel-bg: #111;
+        }
+
         body {
-            background-color: #FFFFFF;
-            color: #000000;
-            font-family: "Times New Roman", Times, serif;
-            margin: 10px;
-        }
-        a:link { color: #0000FF; text-decoration: underline; }
-        a:visited { color: #800080; text-decoration: underline; }
-        a:active { color: #FF0000; text-decoration: underline; }
-        
-        .yahoo-logo {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 52px;
-            font-weight: bold;
-            color: #CC0000;
-            text-shadow: 2px 2px 0px #000;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 0;
-            letter-spacing: -2px;
-        }
-        
-        .marquee-bar {
-            background-color: #FFFF00;
-            border: 2px dashed #0000FF;
-            padding: 4px;
-            font-family: "Courier New", Courier, monospace;
-            font-weight: bold;
-            color: #FF0000;
-            margin-bottom: 15px;
-        }
-
-        .quote-bar {
-            background-color: #000080;
-            border: 4px inset #C0C0C0;
-            color: #FFFF00;
-            padding: 10px 15px;
-            margin-bottom: 15px;
-            font-family: "Courier New", Courier, monospace;
-            text-align: center;
-            box-shadow: 2px 2px 4px #888888;
-        }
-
-        .btn-90s {
-            background-color: #C0C0C0;
-            border-top: 3px solid #FFFFFF;
-            border-left: 3px solid #FFFFFF;
-            border-bottom: 3px solid #666666;
-            border-right: 3px solid #666666;
-            color: #000;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 5px 15px;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            width: 100%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        
-        .btn-90s:active {
-            border-top: 3px solid #666666;
-            border-left: 3px solid #666666;
-            border-bottom: 3px solid #FFFFFF;
-            border-right: 3px solid #FFFFFF;
-            padding: 6px 14px 4px 16px;
-        }
-
-        .cinema-screen-container {
-            background-color: #000000;
-            border: 12px groove #8B0000;
-            color: #E0E0E0;
             padding: 20px;
-            min-height: 550px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Ana Konteyner: Tüplü TV Ekranı */
+        .crt-screen {
+            background-color: var(--bg-color);
+            border: 2px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 30px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 1000px;
             position: relative;
+            overflow: hidden;
+            padding: 20px;
             box-sizing: border-box;
+            /* Kromatik Sapma (Chromatic Aberration) Efekti */
+            text-shadow: 1px 0px 1px rgba(255,0,0,0.5), -1px 0px 1px rgba(0,0,255,0.5);
         }
 
-        .section {
-            display: none; 
-        }
-        .section.active {
+        /* Tarama Çizgileri (Scanlines) */
+        .crt-screen::after {
+            content: " ";
             display: block;
-            animation: retroRollDown 0.5s steps(5, end);
-            transform-origin: top;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
         }
 
-        @keyframes retroRollDown {
-            0% { transform: scaleY(0); background-color: #111; color: #111; }
-            50% { transform: scaleY(0.5); background-color: #333; color: #555; }
-            100% { transform: scaleY(1); background-color: transparent; }
-        }
-
-        .blink {
-            animation: blinker 1s linear infinite;
-            color: #FF0000;
+        /* VCR OSD (On-Screen Display) Elementleri */
+        .vcr-osd {
+            color: var(--crt-green);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
             font-weight: bold;
+            text-shadow: 0 0 8px var(--crt-green);
         }
+
+        .blink { animation: blinker 1s step-start infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
 
-        .retro-hr {
-            border: 0;
-            height: 4px;
-            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2P//vwMTAwMDEwAQQYAAAC3wAv5q+z+AAAAAAElFTkSuQmCC') repeat-x;
-            margin: 15px 0;
+        /* Başlık */
+        h1 {
+            text-align: center;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+            margin: 10px 0;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
         }
 
+        /* Replik Barı (VHS Tracking Yazısı Gibi) */
+        .quote-bar {
+            background-color: var(--neon-blue);
+            color: #000;
+            padding: 8px 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px var(--neon-blue);
+            text-shadow: none;
+        }
+
+        /* LAYOUT: DVD Menü Tasarımı */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Sol Menü: DVD Seçenekleri */
+        .dvd-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dvd-btn {
+            background: transparent;
+            color: #fff;
+            border: 1px solid transparent;
+            font-size: 1.1rem;
+            text-align: left;
+            cursor: pointer;
+            text-transform: uppercase;
+            padding: 12px 10px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            position: relative;
+            outline: none;
+        }
+
+        .dvd-btn::before {
+            content: "►";
+            position: absolute;
+            left: -15px;
+            color: var(--neon-pink);
+            opacity: 0;
+            transition: opacity 0.2s;
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .dvd-btn:hover, .dvd-btn.active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+            background: rgba(0, 255, 255, 0.05);
+            border-bottom: 1px solid var(--neon-blue);
+            padding-left: 20px;
+        }
+
+        .dvd-btn:hover::before, .dvd-btn.active::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        /* Sağ İçerik Ekranı */
+        .content-screen {
+            background-color: var(--panel-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            min-height: 450px;
+            border-left: 4px solid var(--neon-pink);
+            box-shadow: inset 0 0 20px rgba(0,0,0,1);
+        }
+
+        .section { display: none; }
+        .section.active {
+            display: block;
+            animation: staticFlicker 0.4s ease-out;
+        }
+
+        @keyframes staticFlicker {
+            0% { opacity: 0; transform: scale(0.98) translateY(5px); filter: blur(2px); }
+            50% { opacity: 0.5; filter: blur(1px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        /* İçerik Tipografisi */
+        h2 { color: var(--neon-pink); border-bottom: 1px dashed #555; padding-bottom: 10px; margin-top: 0; text-shadow: 0 0 5px var(--neon-pink); }
+        h3 { color: var(--neon-blue); }
+        p, li { line-height: 1.6; color: #ccc; }
+        a { color: var(--neon-blue); text-decoration: none; }
+        a:hover { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink); }
+
+        /* Film Çekme Butonu */
+        .action-btn {
+            background-color: var(--neon-pink);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: 0.2s;
+            font-family: inherit;
+            width: 100%;
+            margin-bottom: 20px;
+            text-shadow: none;
+        }
+        .action-btn:hover { background-color: #fff; color: var(--neon-pink); box-shadow: 0 0 25px var(--neon-pink); }
+
+        /* Blog ve Tablolar */
+        .blog-post { background: #0a0a0a; border: 1px solid #222; padding: 20px; margin-bottom: 25px; }
+        .blog-meta { color: var(--crt-green); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        
+        .dict-table { width: 100%; border-collapse: collapse; }
+        .dict-table th, .dict-table td { border: 1px solid #333; padding: 12px; text-align: left; }
+        .dict-table th { background-color: #222; color: var(--neon-blue); }
+        .dict-table td:first-child { color: var(--neon-pink); font-weight: bold; width: 30%; }
+
+        /* MOBİL UYARLAMA */
         @media only screen and (max-width: 768px) {
-            .yahoo-logo {
-                font-size: 36px;
-            }
-            .layout-table, .layout-table tbody, .layout-table tr {
-                display: block;
-                width: 100%;
-            }
-            .layout-sidebar, .layout-content {
-                display: block;
-                width: 100%;
-                border-right: none !important;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            .search-table {
-                width: 95% !important;
-            }
-            #movieCard {
-                width: 100% !important;
-            }
-            .cinema-screen-container {
-                min-height: auto;
-                padding: 10px;
-            }
-            img {
-                max-width: 100%;
-                height: auto;
-            }
+            .layout-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; letter-spacing: 2px; }
+            .vcr-osd { font-size: 1rem; }
+            .content-screen { padding: 15px; border-left: none; border-top: 4px solid var(--neon-pink); }
+            .dvd-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333; padding-bottom: 15px; }
+            .dvd-btn { width: auto; font-size: 0.9rem; padding: 8px; }
+            .dvd-btn:hover, .dvd-btn.active { padding-left: 8px; border-bottom: none; color: var(--neon-pink); }
+            .dvd-btn::before { display: none; }
         }
     </style>
 </head>
-<body bgcolor="#FFFFFF" text="#000000">
+<body>
 
-    <center>
-        <h1 class="yahoo-logo">ZAMAN MAKİNESİ<span class="blink">!</span></h1>
-        <font face="Arial" size="2"><b>İnternetteki En Büyük Sinema ve Film Rehberi Kategorisi</b></font>
-        <br><br>
+    <div class="crt-screen">
         
-        <table class="search-table" border="2" bordercolor="#C0C0C0" bgcolor="#E0E0E0" cellpadding="5" cellspacing="0" width="60%">
-            <tr>
-                <td align="center">
-                    <font face="Arial" size="2">Rehberde Ara:</font>
-                    <input type="text" size="20" value="Örn: Nolan, Kubrick..." style="max-width: 50%;">
-                    <button class="btn-90s" style="display:inline-block; width:auto; padding:2px 10px;">Bul!</button>
-                </td>
-            </tr>
-        </table>
-        <br>
-    </center>
+        <div class="vcr-osd">
+            <span>► PLAY</span>
+            <span class="blink">SP</span>
+            <span>TRACKING ||||||||||</span>
+        </div>
 
-    <div class="marquee-bar">
-        <marquee scrollamount="6">🍿 DİKKAT: YENİ BLOG YAZISI EKLENDİ! 📽️ IMDB TOP 250 VERİTABANI %100 AKTİF... LÜTFEN BİR MENÜ SEÇİNİZ 🎞️ VİZYONDAKİLER İÇİN TIKLAYIN...</marquee>
-    </div>
+        <h1>ZAMAN MAKİNESİ</h1>
+        
+        <div class="quote-bar">
+            CH 03: <span id="randomReplik">VERİ YÜKLENİYOR... LÜTFEN BEKLEYİN.</span>
+        </div>
 
-    <div class="quote-bar">
-        <font size="3">🎬 <b>SİSTEMDEN GELEN REPLİK:</b> <span id="randomReplik" style="color: #00FF00;"><i>Veri yükleniyor... Sistem başlatılıyor...</i></span> 🎬</font>
-    </div>
-
-    <table class="layout-table" width="100%" border="0" cellpadding="10" cellspacing="0">
-        <tr>
-            <td class="layout-sidebar" width="22%" valign="top" bgcolor="#F0F8FF" style="border-right: 3px ridge #C0C0C0;">
-                <table width="100%" border="0" cellspacing="0" cellpadding="3">
-                    <tr><td bgcolor="#000080" align="center"><font color="#FFFFFF" face="Arial"><b>🎬 DİZİN MENÜSÜ</b></font></td></tr>
-                </table>
-                <br>
-                <button type="button" class="btn-90s" onclick="showSection('biz-kimiz')">👤 Biz Kimiz?</button><br><br>
-                <button type="button" class="btn-90s" onclick="showSection('gunun-onerisi')">🎟️ Günün Önerisi</button><br><br>
-                <button type="button" class="btn-90s" onclick="showSection('blog')">✍️ Sinema Günlüğü</button><br><br>
-                <button type="button" class="btn-90s" onclick="showSection('oneri-botu')">🤖 Öneri Botu</button><br><br>
-                <button type="button" class="btn-90s" onclick="showSection('sinema-sozlugu')">📖 Sinema Sözlüğü</button>
+        <div class="layout-grid">
+            
+            <div class="dvd-menu">
+                <button type="button" class="dvd-btn" onclick="showSection('biz-kimiz', this)">[01] Yönetmen Künyesi</button>
+                <button type="button" class="dvd-btn" onclick="showSection('gunun-onerisi', this)">[02] Arşivden Seç</button>
+                <button type="button" class="dvd-btn" onclick="showSection('blog', this)">[03] Sinema Günlüğü</button>
+                <button type="button" class="dvd-btn" onclick="showSection('oneri-botu', this)">[04] Veri Ağları</button>
+                <button type="button" class="dvd-btn" onclick="showSection('sinema-sozlugu', this)">[05] Terimler Sözlüğü</button>
                 
-                <br><br>
-                <center>
-                    <div style="border:2px inset #FFF; background:#C0C0C0; padding:5px; width: 100px;">
-                        <font size="1" face="Arial"><b>SİTE İSTATİSTİKLERİ</b></font><br>
-                        <img src="https://counter5.optie.be/Private/freecounterstat.php?c=87e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8" border="0" alt="Hit Counter" width="80">
-                        <br><font size="1">Ziyaretçi</font>
-                    </div>
-                </center>
-            </td>
-
-            <td class="layout-content" width="78%" valign="top">
-                <div class="cinema-screen-container">
-                    
-                    <div id="biz-kimiz" class="section">
-                        <font face="Arial" color="#FF0000" size="5"><b>[ YÖNETMEN KOLTUĞU / KÜNYE ]</b></font>
-                        <div class="retro-hr"></div>
-                        <table border="2" bordercolor="#666666" cellpadding="10" width="100%" bgcolor="#111111">
-                            <tr>
-                                <td width="150" align="center" valign="top">
-                                    <font size="7">🎥</font><br><br>
-                                    <font color="#00FF00" face="Courier" size="2"><blink>SYSTEM_ONLINE</blink></font>
-                                </td>
-                                <td>
-                                    <font face="Courier" color="#CCCCCC">
-                                    <b>> KULLANICI_ID:</b> Yazı İşleri Müdürü (Basın/Medya)<br>
-                                    <b>> LOKASYON:</b> Gebze, Kocaeli<br>
-                                    <b>> DONANIM AĞI:</b> Sony A7S III, Fujifilm X-H2S (14-bit log profil kodlaması aktif)<br>
-                                    <b>> BOŞ ZAMAN MODÜLÜ:</b> Gameboy Color Pokemon Gold Silver Edition fan made ROM hack<br>
-                                    <b>> FRP STATÜSÜ:</b> D&D Evreni - Rock Gnome Büyücüsü 'WraithCruche'<br>
-                                    <b>> GÜVENLİK ASİSTANI:</b> 5 kg ağırlığında, siyah Bombay cinsi kedi<br>
-                                    </font>
-                                    <br><br>
-                                    <font face="Arial" color="#FFFFFF">
-                                    Basın sektöründeki editoryal disiplini, kamera arkasındaki teknik kurallarla birleştiriyorum. SMMM mevzuatları ve hukuksal metinlerin yoğunluğundan kaçtığım, prompt algoritmalarının matematiği ile görsel sanatları harmanladığım kişisel sinema sığınağıma hoş geldin. Her kare, özenle maskelenmiş bir After Effects projesi gibi incelikle işlenmiştir.
-                                    </font>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div id="gunun-onerisi" class="section">
-                        <font face="Arial" color="#FF0000" size="5"><b>[ PROJEKSİYON ODASI / FİLM ÖNERİSİ ]</b></font>
-                        <div class="retro-hr"></div>
-                        <center>
-                            <font face="Courier" size="3" color="#FFFF00">IMDb Top 250 Veritabanına Bağlanıldı. Hazır.</font><br><br>
-                            <button type="button" class="btn-90s" onclick="generateMovie()" style="font-size: 16px; padding: 10px; width: 80%; max-width: 400px; text-align:center;">🎞️ ARŞİVDEN RASTGELE FİLM ÇEK 🎞️</button>
-                            <br><br>
-                            
-                            <table id="movieCard" border="4" bordercolor="#8B0000" bgcolor="#222222" cellpadding="15" style="display:none; width: 60%;">
-                                <tr>
-                                    <td align="center">
-                                        <img id="movieCover" src="" width="300" height="420" border="2" style="border-color:#FFFFFF;" alt="Film Kapağı">
-                                        <br><br>
-                                        <font face="Arial" size="4" color="#FFFF00"><b id="movieTitle">Film Başlığı</b></font><br>
-                                        <font face="Arial" size="2" color="#AAAAAA">Veri Kaynağı: IMDb Top 250 Offline Arşivi</font>
-                                    </td>
-                                </tr>
-                            </table>
-                        </center>
-                    </div>
-
-                    <div id="blog" class="section">
-                        <font face="Arial" color="#FF0000" size="5"><b>[ SİNEMA GÜNLÜĞÜ ]</b></font>
-                        <div class="retro-hr"></div>
-
-                        <table border="1" bordercolor="#444444" bgcolor="#1A1A1A" cellpadding="15" width="100%" style="margin-bottom: 20px;">
-                            <tr>
-                                <td>
-                                    <font face="Courier" color="#FF0000" size="2"><b>Tarih: 20 Nisan 2026 | Kategori: Kült Klasikler & İnceleme</b></font><br><br>
-                                    <font face="Times New Roman" size="5" color="#FFFFFF"><b>Romero'nun Çocukları: Sinema Tarihinin En İyi Zombi Filmleri</b></font><br><br>
-                                    <font face="Times New Roman" size="3" color="#CCCCCC">
-                                    Modern zombi sinemasının babası George A. Romero'ya bir selam çakmadan korku sinemasından bahsetmek imkansızdır. O, "yaşayan ölüleri" sadece birer canavar değil, toplumun tüketim çılgınlığını, ırkçılığı ve yozlaşmayı yansıtan birer ayna olarak kullandı. Setteki o pratik makyaj efektleri, günümüzün ruhsuz CGI ordularına hala meydan okuyor. İşte Romero'nun mirasını taşıyan ve türün zirvesini belirleyen o unutulmaz yapımlar:<br><br>
-                                    <ul>
-                                        <li style="margin-bottom: 8px;"><b>Night of the Living Dead (1968):</b> Her şeyin başladığı o siyah-beyaz başyapıt. Bağımsız sinemanın ve türün temellerini atan eşsiz bir klasik.</li>
-                                        <li style="margin-bottom: 8px;"><b>Dawn of the Dead (1978):</b> AVM içine sıkışmış insanlık ve Romero'nun sivri dilli tüketim toplumu eleştirisi. Renkli paleti ve Tom Savini imzalı kan kırmızısı efektleriyle tam bir mihenk taşı.</li>
-                                        <li style="margin-bottom: 8px;"><b>28 Days Later (2002):</b> Danny Boyle'un dijital kameralarla çektiği bu film, "hızlı zombi" konseptini ve o çiğ, grenli, belgeselvari gerilimi hayatımıza soktu.</li>
-                                        <li style="margin-bottom: 8px;"><b>Shaun of the Dead (2004):</b> Edgar Wright'ın türün tüm klişeleriyle zekice oynadığı, Romero'ya yapılmış en kusursuz, en İngiliz ve en eğlenceli saygı duruşu.</li>
-                                        <li style="margin-bottom: 8px;"><b>Train to Busan (2016):</b> Klostrofobik bir mekanda (hızlı tren), muazzam bir koreografi ve klostrofobik kamera kullanımıyla zombi türüne taze kan getiren modern bir efsane.</li>
-                                    </ul>
-                                    <br>
-                                    Kameranın arkasında ister 14-bit renk derinliği işleyen modern bir sensör olsun, ister Romero'nun kullandığı grenli 35mm pelikül; aslolan her zaman çürüyen bedenin ve karanlığın ardındaki o derin hikayeyi kadraja sığdırabilmektir.
-                                    </font>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <table border="1" bordercolor="#444444" bgcolor="#1A1A1A" cellpadding="15" width="100%">
-                            <tr>
-                                <td>
-                                    <font face="Courier" color="#FF0000" size="2"><b>Tarih: 19 Nisan 2026 | Kategori: Sinematografi & Zaman</b></font><br><br>
-                                    <font face="Times New Roman" size="5" color="#FFFFFF"><b>Saniyelerin Ağırlığı: Nolan, Sinema ve 14-Bit Derinliği</b></font><br><br>
-                                    <font face="Times New Roman" size="3" color="#CCCCCC">
-                                    Zaman makinesi icat edilmedi diyorlar, oysa her sinema salonu bir zaman makinesidir. Christopher Nolan sinemasına baktığımızda, zamanın sadece bir arka plan değil, başlı başına bir karakter olduğunu görürüz.<br><br>
-                                    <i>Memento</i>'nun sondan başa doğru akan hafızasından, <i>Interstellar</i>'da dalgaların vurduğu gezegendeki saniyelerin ağırlığına kadar... Sinema, geçmişi dondurup geleceği kurgulayabildiğimiz yegane fizik kuramıdır. Nolan'ın pratik efektlerle kurduğu bu mekanik saat işleyişi, tıpkı kamerada 14-bit log profille çekim yapıp After Effects'te roto brush ile kare kare çalışmak kadar zorlu ama bir o kadar gerçektir. Dijital kolaycılığa kaçmadan, filmin ham dokusunu hissetmek, tam da bu dijital günlüğün ruhuna uygun bir manifestodur.
-                                    </font>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div id="oneri-botu" class="section">
-                        <font face="Arial" color="#FF0000" size="5"><b>[ ÖNERİ BOTU AĞLARI ]</b></font>
-                        <div class="retro-hr"></div>
-                        <font face="Arial" color="#FFFFFF">Algoritmalar senin için çalışsın. Sinema pusulanı ayarlayabileceğin radar haritası:</font>
-                        <br><br>
-                        <ul>
-                            <li><font size="4">📂 <a href="#" style="color:#00FFFF;">Letterboxd Ağ Geçidi</a></font> - <font color="#AAA">Sinefillerin sosyal ağı ve detaylı liste merkezi.</font></li><br>
-                            <li><font size="4">📂 <a href="#" style="color:#00FFFF;">TasteDive Algoritması</a></font> - <font color="#AAA">Sevdiğin filmlere dayalı akıllı veri eşleştirme motoru.</font></li><br>
-                            <li><font size="4">📂 <a href="#" style="color:#00FFFF;">MUBI Küratörleri</a></font> - <font color="#AAA">Bağımsız ve klasik sinema arşivi.</font></li><br>
-                            <li><font size="4">📂 <a href="#" style="color:#00FFFF;">JustWatch Radarı</a></font> - <font color="#AAA">Filmin hangi sunucuda barındırıldığını bulan arama motoru.</font></li>
-                        </ul>
-                    </div>
-
-                    <div id="sinema-sozlugu" class="section">
-                        <font face="Arial" color="#FF0000" size="5"><b>[ SİNEMA TERİMLERİ SÖZLÜĞÜ ]</b></font>
-                        <div class="retro-hr"></div>
-                        <table border="1" bordercolor="#555555" cellpadding="8" cellspacing="0" width="100%">
-                            <tr bgcolor="#8B0000">
-                                <td><font color="#FFFFFF" face="Arial"><b>Terim</b></font></td>
-                                <td><font color="#FFFFFF" face="Arial"><b>Açıklama</b></font></td>
-                            </tr>
-                            <tr bgcolor="#111111">
-                                <td><font color="#FFFF00"><b>Mise-en-scène</b></font></td>
-                                <td><font color="#CCC">Mizansen. Çerçeve içindeki her şeyin (ışık, dekor, oyuncu) yerleşimi.</font></td>
-                            </tr>
-                            <tr bgcolor="#222222">
-                                <td><font color="#FFFF00"><b>MacGuffin</b></font></td>
-                                <td><font color="#CCC">Olay örgüsünü sürükleyen ama içsel anlamı olmayan nesne. (Örn: Pulp Fiction çantası)</font></td>
-                            </tr>
-                            <tr bgcolor="#111111">
-                                <td><font color="#FFFF00"><b>Roto Brush</b></font></td>
-                                <td><font color="#CCC">Post-prodüksiyonda hareketli bir objeyi arka plandan ayırmak için kullanılan maskeleme aracı.</font></td>
-                            </tr>
-                            <tr bgcolor="#222222">
-                                <td><font color="#FFFF00"><b>Dutch Angle</b></font></td>
-                                <td><font color="#CCC">Kameranın eğik tutulması. Karakterin dengesizliğini ve gerilimi hissettirir.</font></td>
-                            </tr>
-                        </table>
-                    </div>
-
+                <div style="margin-top: auto; padding-top: 30px; text-align: center; color: #555; font-size: 0.8rem;">
+                    SİSTEM DURUMU: AKTİF<br>
+                    <img src="https://counter5.optie.be/Private/freecounterstat.php?c=87e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8" border="0" alt="Hit Counter" width="60" style="opacity: 0.5; filter: grayscale(100%); margin-top: 10px;">
                 </div>
-            </td>
-        </tr>
-    </table>
+            </div>
 
-    <br>
-    <center>
-        <font face="Arial" size="1">
-            Copyright © 1998-2026 Zaman Makinesi Inc. En iyi Netscape Navigator veya Internet Explorer 4.0 ile görüntülenir.<br>
-            <i>Sayfa HTML 4.0 Standartlarında Tablolarla Örülmüştür.</i>
-        </font>
-    </center>
+            <div class="content-screen">
+                
+                <div id="biz-kimiz" class="section">
+                    <h2>// PROFİL VERİLERİ ÇÖZÜMLENİYOR...</h2>
+                    <p><b>> KULLANICI_ID:</b> Yazı İşleri Müdürü (Basın/Medya)</p>
+                    <p><b>> LOKASYON:</b> Gebze, Kocaeli</p>
+                    <p><b>> DONANIM AĞI:</b> Sony A7S III, Fujifilm X-H2S (14-bit log profil kodlaması aktif)</p>
+                    <p><b>> SİMÜLASYON:</b> Gameboy Color Pokemon Gold Silver Edition fan made ROM hack</p>
+                    <p><b>> MASAÜSTÜ ROL YAPMA:</b> D&D Evreni - Rock Gnome Büyücüsü 'WraithCruche'</p>
+                    <p><b>> GÜVENLİK ASİSTANI:</b> 5 kg ağırlığında, siyah Bombay cinsi kedi</p>
+                    <hr style="border-color: #333; margin: 20px 0;">
+                    <p><i>Basın sektöründeki editoryal disiplini, kamera arkasındaki teknik kurallarla birleştiriyorum. SMMM mevzuatları ve hukuksal metinlerin yoğunluğundan kaçtığım, prompt algoritmalarının matematiği ile görsel sanatları harmanladığım kişisel sinema sığınağıma hoş geldin. Her kare, özenle maskelenmiş bir After Effects projesi gibi incelikle işlenmiştir.</i></p>
+                </div>
+
+                <div id="gunun-onerisi" class="section" style="text-align: center;">
+                    <h2>// IMDB OFFLINE VERİTABANI BAĞLANTISI</h2>
+                    <p style="color: var(--crt-green);">Sistem Hazır. Rastgele çekim modülü aktif.</p>
+                    <button type="button" class="action-btn" onclick="generateMovie()">KASEDİ TAK VE ÇALIŞTIR</button>
+                    
+                    <div id="movieCard" style="display:none; background: #000; border: 1px solid #333; padding: 20px; margin-top: 20px; box-shadow: 0 0 10px rgba(0,255,255,0.2);">
+                        <img id="movieCover" src="" style="width: 100%; max-width: 250px; border: 2px solid var(--neon-blue);" alt="Film Kapağı">
+                        <h3 id="movieTitle" style="margin: 15px 0 5px 0; font-size: 1.5rem; text-transform: uppercase;"></h3>
+                        <span style="color: #666; font-size: 0.9rem;">> VERİ KAYNAĞI: liste.js</span>
+                    </div>
+                </div>
+
+                <div id="blog" class="section">
+                    <h2>// DİJİTAL SİNEMA GÜNLÜĞÜ</h2>
+                    
+                    <div class="blog-post">
+                        <span class="blog-meta">> TARİH: 20 Nisan 2026 | KATEGORİ: Kült Klasikler & İnceleme</span>
+                        <h3>Romero'nun Çocukları: Sinema Tarihinin En İyi Zombi Filmleri</h3>
+                        <p>Modern zombi sinemasının babası George A. Romero'ya bir selam çakmadan korku sinemasından bahsetmek imkansızdır. O, "yaşayan ölüleri" sadece birer canavar değil, toplumun tüketim çılgınlığını, ırkçılığı ve yozlaşmayı yansıtan birer ayna olarak kullandı. Setteki o pratik makyaj efektleri, günümüzün ruhsuz CGI ordularına hala meydan okuyor. İşte Romero'nun mirasını taşıyan ve türün zirvesini belirleyen o unutulmaz yapımlar:</p>
+                        <ul>
+                            <li><b>Night of the Living Dead (1968):</b> Her şeyin başladığı o siyah-beyaz başyapıt. Bağımsız sinemanın ve türün temellerini atan eşsiz bir klasik.</li>
+                            <li><b>Dawn of the Dead (1978):</b> AVM içine sıkışmış insanlık ve Romero'nun sivri dilli tüketim toplumu eleştirisi. Renkli paleti ve Tom Savini imzalı kan kırmızısı efektleriyle tam bir mihenk taşı.</li>
+                            <li><b>28 Days Later (2002):</b> Danny Boyle'un dijital kameralarla çektiği bu film, "hızlı zombi" konseptini ve o çiğ, grenli, belgeselvari gerilimi hayatımıza soktu.</li>
+                            <li><b>Shaun of the Dead (2004):</b> Edgar Wright'ın türün tüm klişeleriyle zekice oynadığı, Romero'ya yapılmış en kusursuz, en İngiliz ve en eğlenceli saygı duruşu.</li>
+                            <li><b>Train to Busan (2016):</b> Klostrofobik bir mekanda (hızlı tren), muazzam bir koreografi ve klostrofobik kamera kullanımıyla zombi türüne taze kan getiren modern bir efsane.</li>
+                        </ul>
+                        <p>Kameranın arkasında ister 14-bit renk derinliği işleyen modern bir sensör olsun, ister Romero'nun kullandığı grenli 35mm pelikül; aslolan her zaman çürüyen bedenin ve karanlığın ardındaki o derin hikayeyi kadraja sığdırabilmektir.</p>
+                    </div>
+
+                    <div class="blog-post">
+                        <span class="blog-meta">> TARİH: 20 Nisan 2026 | KATEGORİ: Sinematografi & Korku</span>
+                        <h3>Yaşayan Ölülerin Rengi: Düşük Işıkta Zombi Estetiği</h3>
+                        <p>Zombi filmlerinin asıl dehşeti, çürüyen bedenlerde değil, karanlığın içindeki belirsizlikte saklıdır. Romero'nun siyah-beyaz klasiklerinden modern salgın filmlerine kadar bu türün ruhu, gölgelerin gücünü kullanmaktan geçer. Kamerayı elinize aldığınızda, o kasvetli ve tekinsiz atmosferi yaratmak sıradan bir çekimden çıkıp matematiksel bir post-prodüksiyon meydan okumasına dönüşür.</p>
+                        <p>Sette zombilerin o soluk, hastalıklı ten rengini ve çamurlu yeşil tonlarını yakalamak için karanlıkta çalışmak zorundasınız. İşte tam burada ekipmanın sınırlarını zorlamak devreye giriyor. Sony A7S III gibi düşük ışık canavarlarının güvenli ISO aralıklarında gezinirken, o karanlık köşelerdeki detayı kaybetmemek için 14-bit renk derinliğinin sunduğu esnekliğe sığınıyorsunuz. Post-prodüksiyonda o karanlık pikselleri kurtarmak ve renkleri ayırmak, adeta bir zombiyi diriltmek gibidir. Doğru log profilini kullanıp ışığı verimli okuyamazsanız, gölgeler noise (kumlanma) içinde boğulur ve o sinematik dehşet hissi, anında ucuz bir amatör videoya dönüşür. Zombi sineması; izleyici için hayatta kalma, kameraman için ise ışığı hayatta tutma mücadelesidir.</p>
+                    </div>
+
+                    <div class="blog-post">
+                        <span class="blog-meta">> TARİH: 19 Nisan 2026 | KATEGORİ: Sinematografi & Zaman</span>
+                        <h3>Saniyelerin Ağırlığı: Nolan, Sinema ve 14-Bit Derinliği</h3>
+                        <p>Zaman makinesi icat edilmedi diyorlar, oysa her sinema salonu bir zaman makinesidir. Christopher Nolan sinemasına baktığımızda, zamanın sadece bir arka plan değil, başlı başına bir karakter olduğunu görürüz. <i>Memento</i>'nun sondan başa doğru akan hafızasından, <i>Interstellar</i>'da dalgaların vurduğu gezegendeki saniyelerin ağırlığına kadar... Sinema, geçmişi dondurup geleceği kurgulayabildiğimiz yegane fizik kuramıdır. Nolan'ın pratik efektlerle kurduğu bu mekanik saat işleyişi, tıpkı kamerada 14-bit log profille çekim yapıp After Effects'te roto brush ile kare kare çalışmak kadar zorlu ama bir o kadar gerçektir.</p>
+                    </div>
+                </div>
+
+                <div id="oneri-botu" class="section">
+                    <h2>// HARİCİ AĞ BAĞLANTILARI</h2>
+                    <p>Algoritmalar senin için çalışsın. Sinema pusulanı ayarlayabileceğin radar haritası:</p>
+                    <ul>
+                        <li><a href="#">[ PORT 01 ] Letterboxd Ağ Geçidi</a> - Sinefillerin sosyal ağı ve detaylı liste merkezi.</li>
+                        <li><a href="#">[ PORT 02 ] TasteDive Algoritması</a> - Sevdiğin filmlere dayalı akıllı veri eşleştirme motoru.</li>
+                        <li><a href="#">[ PORT 03 ] MUBI Küratörleri</a> - Bağımsız ve klasik sinema arşivi.</li>
+                        <li><a href="#">[ PORT 04 ] JustWatch Radarı</a> - Filmin hangi sunucuda barındırıldığını bulan arama motoru.</li>
+                    </ul>
+                </div>
+
+                <div id="sinema-sozlugu" class="section">
+                    <h2>// TERMİNOLOJİ DEKODERİ</h2>
+                    <table class="dict-table">
+                        <tr>
+                            <th>TERİM</th>
+                            <th>TANIM</th>
+                        </tr>
+                        <tr>
+                            <td>Mise-en-scène</td>
+                            <td>Mizansen. Çerçeve içindeki her şeyin (ışık, dekor, oyuncu) yerleşimi.</td>
+                        </tr>
+                        <tr>
+                            <td>MacGuffin</td>
+                            <td>Olay örgüsünü sürükleyen ama içsel anlamı olmayan nesne. (Örn: Pulp Fiction çantası)</td>
+                        </tr>
+                        <tr>
+                            <td>Roto Brush</td>
+                            <td>Post-prodüksiyonda hareketli bir objeyi arka plandan ayırmak için kullanılan maskeleme aracı.</td>
+                        </tr>
+                        <tr>
+                            <td>Dutch Angle</td>
+                            <td>Kameranın eğik tutulması. Karakterin dengesizliğini ve gerilimi hissettirir.</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; font-size: 0.8rem; color: #444;">
+            COPYRIGHT © 1998-2026 ZAMAN MAKİNESİ VIDEO KULÜBÜ<br>
+            SİSTEM UYARISI: LÜTFEN KASETLERİ GERİ SARARAK İADE EDİNİZ.
+        </div>
+    </div>
 
     <script src="liste.js"></script>
     <script src="liste2.js"></script>
 
     <script>
+        // Sayfa yüklendiğinde
         window.onload = function() {
-            showSection('biz-kimiz');
+            // İlk menü öğesini aktif yap
+            var firstBtn = document.querySelector('.dvd-btn');
+            showSection('biz-kimiz', firstBtn);
             
+            // Replik veritabanından rastgele çekim
             if (typeof replikListesi !== 'undefined' && replikListesi.length > 0) {
                 var randomQuoteIndex = Math.floor(Math.random() * replikListesi.length);
-                document.getElementById('randomReplik').innerHTML = '"' + replikListesi[randomQuoteIndex] + '"';
+                document.getElementById('randomReplik').innerText = '"' + replikListesi[randomQuoteIndex] + '"';
             } else {
-                document.getElementById('randomReplik').innerHTML = "Sistem Hatası: Replik veri tabanına (liste2.js) ulaşılamadı.";
+                document.getElementById('randomReplik').innerText = "SİSTEM HATASI: liste2.js BAĞLANTISI KOPTU.";
             }
         };
 
-        function showSection(id) {
+        // DVD Menü Geçiş Mantığı
+        function showSection(id, btnElement) {
+            // İçerikleri gizle
             var sections = document.getElementsByClassName('section');
-            
             for(var i = 0; i < sections.length; i++) {
                 sections[i].style.display = 'none';
                 sections[i].classList.remove('active');
             }
             
+            // Butonlardaki aktif sınıfı temizle
+            var buttons = document.getElementsByClassName('dvd-btn');
+            for(var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            
+            // Seçilen içeriği göster
             var targetSection = document.getElementById(id);
             if(targetSection) {
                 targetSection.style.display = 'block';
-                void targetSection.offsetWidth; 
+                void targetSection.offsetWidth; // CSS animasyonunu tetiklemek için reflow
                 targetSection.classList.add('active');
+            }
+            
+            // Tıklanan butonu aktif yap
+            if(btnElement) {
+                btnElement.classList.add('active');
             }
         }
 
+        // Film Çekme Fonksiyonu
         function generateMovie() {
             var card = document.getElementById('movieCard');
             
@@ -378,12 +410,13 @@
                 
                 document.getElementById('movieTitle').innerText = selectedMovie;
                 
-                var placeholderUrl = "https://placehold.co/300x420/8b0000/000000?font=oswald&text=" + encodeURIComponent(selectedMovie);
+                // Kapak görseli (Neon estetiğine uygun renklerle)
+                var placeholderUrl = "https://placehold.co/300x450/111111/00ffff?font=oswald&text=" + encodeURIComponent(selectedMovie);
                 document.getElementById('movieCover').src = placeholderUrl;
                 
                 card.style.display = "block";
             } else {
-                alert("liste.js dosyası yüklenemedi!");
+                alert("SİSTEM UYARISI: liste.js VERİTABANINA ULAŞILAMIYOR!");
             }
         }
     </script>
