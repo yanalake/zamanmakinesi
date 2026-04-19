@@ -269,13 +269,15 @@
         </font>
     </center>
 
+  <script src="liste.js"></script>
+
     <script>
-        // YÖNERGE: Sayfa yüklendiğinde varsayılan olarak "Biz Kimiz" sekmesini açar.
+        // Sayfa yüklendiğinde varsayılan olarak "Biz Kimiz" sekmesini açar.
         window.onload = function() {
             showSection('biz-kimiz');
         };
 
-        // YÖNERGE: Menü sekmeleri arasında hatasız ve pürüzsüz geçiş sağlayan fonksiyon.
+        // Menü sekmeleri arasında hatasız ve pürüzsüz geçiş sağlayan fonksiyon.
         function showSection(id) {
             var sections = document.getElementsByClassName('section');
             
@@ -295,36 +297,28 @@
             }
         }
 
-        // YÖNERGE: IMDb Top 250 veritabanının optimize edilmiş listesi.
-        const imdbTop250 = [
-            "1. The Shawshank Redemption (1994)", "2. The Godfather (1972)", "3. The Godfather: Part II (1974)", 
-            "4. The Dark Knight (2008)", "5. 12 Angry Men (1957)", "6. Schindler's List (1993)", 
-            "7. The Lord of the Rings: The Return of the King (2003)", "8. Pulp Fiction (1994)", 
-            "9. The Lord of the Rings: The Fellowship of the Ring (2001)", "10. The Good, the Bad and the Ugly (1966)",
-            "11. Forrest Gump (1994)", "12. Fight Club (1999)", "13. Inception (2010)", 
-            "14. Star Wars: Episode V (1980)", "15. The Matrix (1999)", "16. Goodfellas (1990)", 
-            "17. Se7en (1995)", "18. Seven Samurai (1954)", "19. City of God (2002)", "20. Interstellar (2014)"
-            // Not: Tarayıcıyı yormamak adına örneklem 20 filmle sınırlanmış, dilediğinde listeyi büyütebilirsin.
-        ];
-
-        // YÖNERGE: Rastgele film üreten ve görseli harici API olmadan "Placehold.co" üzerinden basan fonksiyon.
+        // YÖNERGE: Butonun tetiklediği, liste.js içindeki veriyi okuyan yeni fonksiyon
         function generateMovie() {
             var card = document.getElementById('movieCard');
-            var randomInt = Math.floor(Math.random() * imdbTop250.length);
-            var selectedMovie = imdbTop250[randomInt];
             
-            // Numara ve tarihleri temizleyip salt isim çıkarma (Görsel kapağına yazmak için)
-            var cleanTitle = selectedMovie.replace(/[0-9]+\.\s/, '').replace(/\s\([0-9]{4}\)/, '');
+            // filmListesi değişkeni harici liste.js dosyasından otomatik olarak çekilir
+            // Math.random ile bu listenin uzunluğu kadar rastgele bir sayı üretip filmi seçiyoruz
+            var randomInt = Math.floor(Math.random() * filmListesi.length);
+            var selectedMovie = filmListesi[randomInt];
             
+            // HTML içindeki yazı alanına seçilen filmi yazdırıyoruz
             document.getElementById('movieTitle').innerText = selectedMovie;
             
             // Dinamik afiş oluşturucu (Eski stil kırmızı arka plan üzerine kalın siyah font)
-            var placeholderUrl = "https://placehold.co/300x420/8b0000/000000?font=oswald&text=" + encodeURIComponent(cleanTitle);
+            // Filmin ismi uzunsa afişe sığması için encodeURIComponent kullanıyoruz
+            var placeholderUrl = "https://placehold.co/300x420/8b0000/000000?font=oswald&text=" + encodeURIComponent(selectedMovie);
             document.getElementById('movieCover').src = placeholderUrl;
             
-            // Kartı görünür hale getir
+            // Kartı (Projeksiyon perdesini) görünür hale getir
             card.style.display = "block";
         }
     </script>
+</body>
+</html>
 </body>
 </html>
